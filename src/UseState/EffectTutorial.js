@@ -1,19 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-// This component demonstrates the use of useEffect to log a message when the component mounts (after the page loads).
-// The useEffect hook is called after the component is rendered, and it runs the provided function.
 const EffectTutorial = () => {
+  const [data, setData] = useState("");
   useEffect(() => {
-    console.log("Hello World - Component mounted");
+    axios
+      .get("https://jsonplaceholder.typicode.com/comments")
+      .then((response) => {
+        setData(response.data[0].email);
+        console.log("API WAS CALLED");
+        console.log(response.data);
+      });
   });
 
-  return <div>Hello World</div>; 
+  return <div>Hello World {data}</div>;
 };
 
 export default EffectTutorial;
 
 
-/* 
-The message is logged twice because, in development mode with React 18's Strict Mode enabled, React deliberately mounts, unmounts, and re-mounts the component to help catch side effects. 
-This causes useEffect to run twice — once after the first mount, and again after the second. 
- */
+//Here the message will be logged 3 times because the component is re-rendered 3 times ( the third time is when the data is set using setData).
