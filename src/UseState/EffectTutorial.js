@@ -11,12 +11,9 @@ const EffectTutorial = () => {
         console.log("API WAS CALLED");
         console.log(response.data);
       });
-  });
+  }, []); // Empty dependency array means this effect runs only once - when the component mounts
 
   return <div>Hello World {data}</div>;
 };
 
 export default EffectTutorial;
-
-
-//Here the message will be logged 3 times because the component is re-rendered 3 times ( the third time is when the data is set using setData).
