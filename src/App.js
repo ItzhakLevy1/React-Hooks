@@ -1,10 +1,10 @@
-import './App.css';
-import RefTutorial from './UseState/RefTutorial';
+import "./App.css";
+import LayoutEffectTutorial from "./UseState/LayoutEffectTutorial";
 
 function App() {
   return (
     <div className="App">
-      <RefTutorial />
+      <LayoutEffectTutorial />
     </div>
   );
 }
