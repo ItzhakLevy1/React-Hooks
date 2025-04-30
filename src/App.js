@@ -1,10 +1,10 @@
 import './App.css';
-import EffectTutorial from './UseState/EffectTutorial';
+import RefTutorial from './UseState/RefTutorial';
 
 function App() {
   return (
     <div className="App">
-      <EffectTutorial />
+      <RefTutorial />
     </div>
   );
 }
