@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef } from "react";  // useRef is a hook that returns a mutable ref object whose .current property is initialized to the passed argument (initialValue).
 import Button from "./Button";
 
 // This is the parent component, it will call the child button component's method using the controlRef.

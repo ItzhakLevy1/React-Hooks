@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 const Button = ({ controlRef }) => {
   const [toggle, setToggle] = useState(false);
 
+  // useEffect assigns a method (toggleMessage) to controlRef.current, which can be called from the parent component.
   useEffect(() => {
     controlRef.current = {
       toggleMessage: () => setToggle((toggle) => !toggle),
