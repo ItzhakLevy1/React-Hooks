@@ -19,7 +19,7 @@ const ImperativeHandle = () => {
       <button onClick={() => buttonRef.current?.toggleMessage()}>  {/* The ? is optional chaining, it will only call the function if it exists */}
         🧔🏻‍♂️ Button from parent component
       </button>
-      <Button controlRef={buttonRef} />
+      <Button controlRef={buttonRef} /> {/* controlRef (Could be any other arbitrary name) is passed to the Button component, which will use it to call the toggleMessage function */}
     </div>
   );
 };
