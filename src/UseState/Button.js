@@ -1,18 +1,17 @@
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const Button = forwardRef((props, ref) => {
+const Button = ({ controlRef }) => {
   const [toggle, setToggle] = useState(false);
 
-  useImperativeHandle(ref, () => ({
-    // This will expose the alterTuggle method to the parent component - when the ref is passed to the Button component
-    alterTuggle: () => {
-      setToggle(!toggle);
-    },
-  }));
+  useEffect(() => {
+    controlRef.current = {
+      toggleMessage: () => setToggle((toggle) => !toggle),
+    };
+  });
 
   return (
     <>
-      <button>👶Button from child component</button>
+      <button>👶 Button from child component</button>
       {toggle && (
         <span>
           This message is from the CHILD button component <br />
@@ -24,7 +23,7 @@ const Button = forwardRef((props, ref) => {
       )}
     </>
   );
-});
+};
 
 export default Button;
 
