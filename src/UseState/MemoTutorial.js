@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 export default function MemoTutorial() {
 
@@ -11,12 +11,13 @@ export default function MemoTutorial() {
       .get("https://jsonplaceholder.typicode.com/comments")
       .then((response) => {
         setData(response.data);
+        console.log(response.data);
       });
   }, []);
 
-  const findLongestNamd = (comments) => {
+  const findLongestName = (comments) => {
 
-    if (!comments) return null;             // Check if comments is null or undefined, if so return null
+    if (!comments) return null;                         // Check if comments is null or undefined, if so return null
 
     let longestName = "";                               // Initialize the longest name as an empty string 
 
@@ -27,13 +28,16 @@ export default function MemoTutorial() {
       }
     }
 
-    console.log("THIS WAS COMPUTED");
+    console.log("THIS WAS COMPUTED"); // Now this will be printed only when the data changes + on page reload, and not on every button click
     return longestName;
   };
 
+  // Memoize the result of findLongestName with data as a dependency to avoid recomputing it on every render
+  const getLongestName = useMemo(() => findLongestName(data), [data]); 
+
   return (
     <div className="App">
-      <div>{findLongestNamd(data)}</div>
+      <div>{getLongestName}</div>
       <button
         onClick={() => {
           setToggle(!toggle);
