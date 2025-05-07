@@ -1,6 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
 
+// Child component that only re-renders when props.findLongestName changes
+const LongestNameDisplay = React.memo(({ findLongestName, data }) => {
+  console.log("Child rendered");
+  return <div>{findLongestName(data)}</div>;
+});
+
 export default function MemoTutorial() {
   const [data, setData] = useState(null);
   const [toggle, setToggle] = useState(false);
@@ -18,13 +24,12 @@ export default function MemoTutorial() {
   const findLongestName = useCallback((comments) => {
     if (!comments) return null; // Check if comments is null or undefined, if so return null
 
-    let longestName = ""; // Initialize the longest name as an empty string
+    let longestName = ""; 
 
     for (let i = 0; i < comments.length; i++) {
-      let correntName = comments[i].name; // Initialized with the name of the current comment
+      let correntName = comments[i].name; 
       if (correntName.length > longestName.length) {
-        // If the current name is longer than the longest name found so far
-        longestName = correntName; // Update the longest name with the longest current name found so far
+        longestName = correntName; 
       }
     }
 
@@ -34,18 +39,22 @@ export default function MemoTutorial() {
 
   return (
     <div className="App">
-      <div>{findLongestName(data)}</div> {/* Call the memoized function with the data */}
-      <button
-        onClick={() => {
-          setToggle(!toggle);
-        }}
-      >
-        Toggle
-      </button>
-      {toggle && <h1> toggle </h1>}
+      <LongestNameDisplay findLongestName={findLongestName} data={data} />
+      <button onClick={() => setToggle(!toggle)}>Toggle</button>
+      {toggle && <h1>toggle</h1>}
     </div>
   );
 }
+
+// The LongestNameDisplay component will only re-render when the findLongestName function changes
+
+
+// 1. Function identity is preserved between renders (due to useCallback).
+
+// 2. The Child component doesn’t re-render unless the data or function reference changes.
+
+// 3. You’ll see that "Child rendered" is logged only when necessary, proving useCallback is doing its job.
+
 
 
 // In this code, the findLongestName function is memoized using useCallback. 
